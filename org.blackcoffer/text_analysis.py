@@ -29,7 +29,7 @@ def scrape_and_save_content(id, url):
             text_body = ' '.join([p.get_text() for p in main_content.find_all('p')])
 
         # Save the content to a text file with the name as the ID
-        with open(fr"C:\Users\prabhu.patrot\Blackcoffer\Extracted text files\{id}.txt", "w", encoding="utf-8") as file:
+        with open(fr"{id}.txt", "w", encoding="utf-8") as file:
             file.write(f"Title: {title}\n\n")
             file.write(text_body)
 
@@ -39,8 +39,7 @@ def scrape_and_save_content(id, url):
 
 
 # Read the Excel file into a DataFrame
-df = pd.read_excel(
-    r"C:\Users\prabhu.patrot\Blackcoffer\20211030 Test Assignment-20240511T052222Z-001\20211030 Test Assignment\Input.xlsx")
+df = pd.read_excel(r"Path/to/Input.xlsx")
 
 # Create an empty DataFrame to store results
 results_df = pd.DataFrame(columns=['URL_ID'])
@@ -50,7 +49,7 @@ for index, row in df.iterrows():
     url = row['URL']
 
     # Scrape and save content for each URL
-    # scrape_and_save_content(id, url)
+    scrape_and_save_content(id, url)
 
 # Download necessary resources for NLTK
 nltk.download('punkt')
@@ -249,18 +248,18 @@ def load_dictionary(dictionary_file):
 
 
 # Load stop words
-stop_words_folder = r"C:\Users\prabhu.patrot\Blackcoffer\20211030 Test Assignment-20240511T052222Z-001\20211030 Test Assignment\StopWords"
+stop_words_folder = r"Path\to\StopWords"
 stop_words = load_stop_words(stop_words_folder)
 print(len(stop_words))
 
 # Load positive and negative dictionaries
-positive_dict_file = r"C:\Users\prabhu.patrot\Blackcoffer\20211030 Test Assignment-20240511T052222Z-001\20211030 Test Assignment\MasterDictionary\positive-words.txt"
-negative_dict_file = r"C:\Users\prabhu.patrot\Blackcoffer\20211030 Test Assignment-20240511T052222Z-001\20211030 Test Assignment\MasterDictionary\negative-words.txt"
+positive_dict_file = r"Path\to\MasterDictionary\positive-words.txt"
+negative_dict_file = r"Path\to\MasterDictionary\negative-words.txt"
 positive_dict = load_dictionary(positive_dict_file) - stop_words
 negative_dict = load_dictionary(negative_dict_file) - stop_words
 
 # Define folder path containing files
-folder_path = r"C:\Users\prabhu.patrot\Blackcoffer\Extracted text files"
+folder_path = r"Path\to\MasterDictionary\Extracted text files"
 
 # Create an empty DataFrame to store results
 results_df_1 = pd.DataFrame(
@@ -320,4 +319,4 @@ for filename in os.listdir(folder_path):
         results_df = pd.concat([results_df, pd.DataFrame([new_row])], ignore_index=True)
 
 # Save results to Excel file
-results_df.to_excel(r"C:\Users\prabhu.patrot\Blackcoffer\text_analysis_results.xlsx", index=False)
+results_df.to_excel(r"Path\to\MasterDictionary\text_analysis_results.xlsx", index=False)
